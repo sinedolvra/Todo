@@ -22,9 +22,9 @@ namespace Todo.Api
         public async Task<IActionResult> CreateTodo([FromBody] CreateTodo request)
         {
             var result = (GenericCommandResult) await _mediator.Send(request);
-            if (!result.Success) return BadRequest(result.Message);
+            if (!result.Success) return BadRequest(result);
 
-            return OkObjectResult(result);
+            return Ok(result);
         }
     }
 }

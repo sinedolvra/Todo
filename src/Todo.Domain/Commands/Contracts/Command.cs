@@ -1,25 +1,41 @@
 using FluentValidation.Results;
 using MediatR;
 using Todo.Domain.Commands.Validators;
+using Todo.Domain.Exceptions;
 
 namespace Todo.Domain.Commands.Contracts
 {
     public abstract class Command : ICommand, IRequest<ICommandResult>
     {
-        public ValidationResult ValidationResult { get; private set; }
+        protected ValidationResult ValidationResult;
 
-        public virtual ValidationResult Validate() => new CommandBaseValidator<Command>().Validate(this);
+        public virtual void Validate()
+        {
+            ValidationResult = new CommandBaseValidator<Command>().Validate(this);
+        } 
         
         public bool IsValid()
         {
-            var validationResult = Validate();
-            ValidationResult = new ValidationResult(validationResult.Errors);
-            return validationResult.IsValid;
+            Validate();
+            return ValidationResult.IsValid;
         }
 
         public bool IsInvalid()
         {
             return !IsValid();
+        }
+
+        public virtual void ValidateAndThrow()
+        {
+            if (IsInvalid())
+            {
+                throw new InvalidCommandException(ValidationResult.Errors.ToString());
+            }
+        }
+
+        public virtual GenericCommandResult CommandResult()
+        {
+            return new (IsValid(), ValidationResult.ToString(), this);
         }
     }
 }

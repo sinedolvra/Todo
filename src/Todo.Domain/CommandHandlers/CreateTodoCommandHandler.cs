@@ -8,9 +8,13 @@ namespace Todo.Domain.CommandHandlers
 {
     public class CreateTodoCommandHandler : IRequestHandler<CreateTodo, ICommandResult>
     {
-        public Task<ICommandResult> Handle(CreateTodo request, CancellationToken cancellationToken)
+        private const string ResultMessage = "Todo created sucessfully!";
+        
+        public async Task<ICommandResult> Handle(CreateTodo request, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            request.Validate();
+            
+            return await Task.FromResult(request.CommandResult());
         }
     }
 }
