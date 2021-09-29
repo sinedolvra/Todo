@@ -9,7 +9,7 @@ namespace Todo.Domain.Commands.Validators
         public CreateTodoValidator()
         {
             RuleFor(x => x.Title).NotEmpty().MinimumLength(3);
-            RuleFor(x => x.CreationDate).GreaterThanOrEqualTo(DateTime.UtcNow);
+            RuleFor(x => x.CreationDate).GreaterThanOrEqualTo(DateTime.UtcNow.Date);
         }
     }
 }
