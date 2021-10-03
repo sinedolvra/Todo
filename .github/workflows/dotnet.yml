@@ -5,7 +5,7 @@ on:
     branches: ["**"]
 
 jobs:
-  build:
+  build_and_tests:
     runs-on: ubuntu-latest
 
     # build and run tests
@@ -23,7 +23,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     
   code_coverage:
-    needs: build
+    needs: build_and_tests
     runs-on: ubuntu-latest
 
     steps:
