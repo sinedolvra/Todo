@@ -22,7 +22,7 @@
 1. Instale o .NET Core v5+ <a href="https://dotnet.microsoft.com/download"><img src="https://img.shields.io/badge/.NET%20Core-v5.0%2B-blueviolet"></a>
 2. Clone o repositório
 ```sh
-git clone git@github.com:sinedolvra/Todo-Api.git
+git clone git@github.com:sinedolvra/Todo.git
 ```
 3. Restaure os pacotes da solução
 ```sh
@@ -38,7 +38,7 @@ dotnet build
 ```
 2. Execute-a
 ```sh
-dotnet run --project .\src\Todo\DevelopersChallenge2.Application\DevelopersChallenge2.Application.csproj
+dotnet run --project .\src\Todo.Api\Todo.Api.csproj
 ```
 3. Acesse a aplicação
 ```sh
