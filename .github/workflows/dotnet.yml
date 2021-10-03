@@ -3,9 +3,6 @@ name: .NET Build and Tests
 on:
   push:
     branches: ["**"]
-    
-  pull_request:
-    branches: ["**"]
 
 jobs:
   build:
@@ -51,6 +48,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
-          ./.sonar/scanner/dotnet-sonarscanner begin /k:"sinedolvra" /o:"sinedolvra" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          ./.sonar/scanner/dotnet-sonarscanner begin /k:"sinedolvra_Todo" /o:"sinedolvra" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l trx
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
