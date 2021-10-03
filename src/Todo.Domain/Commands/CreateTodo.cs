@@ -25,6 +25,10 @@ namespace Todo.Domain.Commands
             ValidationResult = new CreateTodoValidator().Validate(this);
         }
 
-        public TodoItem ToToDo() => new(Title, Description, CreationDate, Done);
+        public TodoItem ToToDo()
+        {
+            var todo = new TodoItem(Title, Description, CreationDate, Done);
+            return todo;
+        }
     }
 }
