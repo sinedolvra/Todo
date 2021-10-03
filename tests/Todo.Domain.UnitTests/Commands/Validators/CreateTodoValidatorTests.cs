@@ -1,6 +1,5 @@
 using System;
 using AutoFixture;
-using FluentAssertions;
 using FluentValidation.TestHelper;
 using Todo.Domain.Commands;
 using Todo.Domain.Commands.Validators;
