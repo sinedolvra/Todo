@@ -4,7 +4,7 @@ namespace Todo.Domain.Entities
 {
     public abstract class Entity
     {
-        private string Id { get; set; }
+        public string Id { get; set; }
 
         protected Entity()
         {
