@@ -1,18 +1,19 @@
-name: .NET
+name: .NET Build and Tests
 
 on:
   push:
-    branches: [‘**’]
+    branches: ["**"]
     
   pull_request:
-    branches: [‘**’]
+    branches: ["**"]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
-    steps:
+    # build and run tests
+    steps: 
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
@@ -24,7 +25,8 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-      
+    
+    # run sonarqube 
     - name: Cache SonarCloud packages
       uses: actions/cache@v1
       with:
