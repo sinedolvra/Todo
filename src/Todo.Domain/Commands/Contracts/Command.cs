@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using FluentValidation.Results;
 using MediatR;
 using Todo.Domain.Commands.Validators;
@@ -5,6 +6,7 @@ using Todo.Shared;
 
 namespace Todo.Domain.Commands.Contracts
 {
+    [ExcludeFromCodeCoverage]
     public abstract class Command : ICommand, IRequest<ICommandResult>
     {
         protected ValidationResult ValidationResult;
