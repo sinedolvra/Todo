@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <PackageReference Include="FluentValidation" Version="10.3.3" />
+      <PackageReference Include="OpenCoverToCoberturaConverter" Version="0.3.4" />
     </ItemGroup>
 
 </Project>

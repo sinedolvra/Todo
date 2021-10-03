@@ -9,6 +9,7 @@
       <PackageReference Include="MediatR" Version="9.0.0" />
       <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
       <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+      <PackageReference Include="OpenCoverToCoberturaConverter" Version="0.3.4" />
     </ItemGroup>
 
     <ItemGroup>
