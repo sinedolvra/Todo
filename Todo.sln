@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Api", "src\Todo.Api\To
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Domain", "src\Todo.Domain\Todo.Domain.csproj", "{9709E381-C6AB-4FFB-9F00-EAD36C7D92E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Infra", "src\Todo.Infra\Todo.Infra.csproj", "{BA61C3A4-F968-4AF7-82DB-4E481927C6CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Shared", "src\Todo.Shared\Todo.Shared.csproj", "{819A86DA-B892-4E87-BF40-00308D60F483}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{9709E381-C6AB-4FFB-9F00-EAD36C7D92E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9709E381-C6AB-4FFB-9F00-EAD36C7D92E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9709E381-C6AB-4FFB-9F00-EAD36C7D92E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA61C3A4-F968-4AF7-82DB-4E481927C6CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA61C3A4-F968-4AF7-82DB-4E481927C6CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA61C3A4-F968-4AF7-82DB-4E481927C6CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA61C3A4-F968-4AF7-82DB-4E481927C6CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{819A86DA-B892-4E87-BF40-00308D60F483}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{819A86DA-B892-4E87-BF40-00308D60F483}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{819A86DA-B892-4E87-BF40-00308D60F483}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{819A86DA-B892-4E87-BF40-00308D60F483}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

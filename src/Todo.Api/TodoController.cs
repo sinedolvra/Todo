@@ -1,8 +1,11 @@
+using System;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Todo.Domain.Commands;
 using Todo.Domain.Commands.Contracts;
+using Todo.Shared;
 
 namespace Todo.Api
 {
@@ -21,10 +24,17 @@ namespace Todo.Api
         [HttpPost]
         public async Task<IActionResult> CreateTodo([FromBody] CreateTodo request)
         {
-            var result = (GenericCommandResult) await _mediator.Send(request);
-            if (!result.Success) return BadRequest(result);
+            try
+            {
+                var result = (GenericCommandResult) await _mediator.Send(request);
+                if (!result.Success) return BadRequest(result);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResponse(e.Message));
+            }
         }
     }
 }

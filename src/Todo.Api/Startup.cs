@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,6 +9,9 @@ using Microsoft.OpenApi.Models;
 using Todo.Domain.CommandHandlers;
 using Todo.Domain.Commands;
 using Todo.Domain.Commands.Contracts;
+using Todo.Domain.Repositories;
+using Todo.Infra;
+using Todo.Infra.Contexts;
 
 namespace Todo.Api
 {
@@ -24,9 +27,12 @@ namespace Todo.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMediatR(typeof(Startup));
+            services.AddDbContext<TodoItemContext>(opt =>
+                opt.UseInMemoryDatabase("Database"));
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Todo.Api", Version = "v1"}); });
-            
+
+            services.AddScoped<ITodoRepository, TodoRepository>();
             services.AddScoped<IRequestHandler<CreateTodo, ICommandResult>, CreateTodoCommandHandler>();
         }
 
