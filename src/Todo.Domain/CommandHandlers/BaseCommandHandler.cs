@@ -2,11 +2,11 @@ using Todo.Domain.Repositories;
 
 namespace Todo.Domain.CommandHandlers
 {
-    public class BaseCommandHandler
+    public abstract class BaseCommandHandler
     {
         protected readonly ITodoRepository _repository;
 
-        public BaseCommandHandler(ITodoRepository repository)
+        protected BaseCommandHandler(ITodoRepository repository)
         {
             _repository = repository;
         }
