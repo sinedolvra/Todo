@@ -16,7 +16,7 @@ namespace Todo.Domain.Commands.Contracts
 
         public bool IsInvalid()
         {
-            return ValidationResult.IsValid == false;
+            return !ValidationResult.IsValid;
         }
         
         public GenericCommandResult GetValidationResult()
