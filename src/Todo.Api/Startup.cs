@@ -10,8 +10,8 @@ using Todo.Domain.CommandHandlers;
 using Todo.Domain.Commands;
 using Todo.Domain.Commands.Contracts;
 using Todo.Domain.Repositories;
-using Todo.Infra;
 using Todo.Infra.Contexts;
+using Todo.Infra.Repositories;
 
 namespace Todo.Api
 {

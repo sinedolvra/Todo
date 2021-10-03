@@ -1,10 +1,13 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Todo.Domain.Entities;
 using Todo.Domain.Repositories;
 using Todo.Infra.Contexts;
 
-namespace Todo.Infra
+namespace Todo.Infra.Repositories
 {
+    
+    [ExcludeFromCodeCoverage]
     public class TodoRepository : ITodoRepository
     {
         private readonly TodoItemContext _context;
