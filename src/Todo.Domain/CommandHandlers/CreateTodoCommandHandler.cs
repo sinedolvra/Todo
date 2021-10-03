@@ -23,7 +23,7 @@ namespace Todo.Domain.CommandHandlers
             if (request.IsInvalid())
                 return await FromResult(request.GetValidationResult());
             
-            var createdTodo = await _repository.Add(request.ToToDo());
+            var createdTodo = await _repository.Add(request.ToTodo());
             return await FromResult(new GenericCommandResult(true, ResultMessage, createdTodo));
         }
     }

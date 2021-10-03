@@ -4,7 +4,7 @@ using FluentAssertions;
 using Todo.Domain.Entities;
 using Xunit;
 
-namespace Todo.Domain.UnitTests
+namespace Todo.Domain.UnitTests.Entities
 {
     public class TodoItemTests : TestBase
     {
