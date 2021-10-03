@@ -6,7 +6,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     # build and run tests
@@ -24,10 +23,15 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     
   code_coverage:
-
+    needs: build
     runs-on: ubuntu-latest
 
-    steps:    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
     # run sonarqube 
     - name: Cache SonarCloud packages
       uses: actions/cache@v1
