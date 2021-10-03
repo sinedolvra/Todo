@@ -14,14 +14,9 @@ namespace Todo.Domain.Commands.Contracts
             ValidationResult = new CommandBaseValidator<Command>().Validate(this);
         }
 
-        public bool IsValid()
-        {
-            return ValidationResult.IsValid;
-        }
-
         public bool IsInvalid()
         {
-            return ValidationResult.IsValid == false;
+            return !ValidationResult.IsValid;
         }
         
         public GenericCommandResult GetValidationResult()
