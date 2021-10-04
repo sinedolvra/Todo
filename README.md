@@ -11,45 +11,70 @@
 
 </div>
 
-## Sobre o Projeto
-- Este projeto é uma Api básica para estudos de:
+## About the project
+- This project is a basic Api for studies of:
    - CQRS
-   - Padrão Mediator
-   - Qualidade de código
-   - Github Action
+   - Mediator Pattern
+   - Code Quality
+   - Github Actions
 
 ## Instalação
-1. Instale o .NET Core v5+ <a href="https://dotnet.microsoft.com/download"><img src="https://img.shields.io/badge/.NET%20Core-v5.0%2B-blueviolet"></a>
-2. Clone o repositório
+1. Install the .NET Core v5+ <a href="https://dotnet.microsoft.com/download"><img src="https://img.shields.io/badge/.NET%20Core-v5.0%2B-blueviolet"></a>
+
+
+2. Clone the repository
 ```sh
 git clone git@github.com:sinedolvra/Todo.git
 ```
-3. Restaure os pacotes da solução
+3. Restore packages
 ```sh
 dotnet restore Todo.sln
 ```
 
-## Uso da aplicação
+## Application use
 
-### Rodando a aplicação
-1. Build a aplicação
+### Run the application
+1. Build
 ```sh
 dotnet build
 ```
-2. Execute-a
+2. Run it
 ```sh
 dotnet run --project .\src\Todo.Api\Todo.Api.csproj
 ```
-3. Acesse a aplicação
+3. Access the application
 ```sh
 Acesse https://localhost:5001 ou http://localhost:5000
 ```
 
-#### Via Docker
-1. Na raiz do projeto, basta executar o comando:
+#### Docker
+1. At the root of the project, run the command:
 ```sh
 docker-compose up
 ```
+
+## Contributing
+
+#### If you want to contribute to this project and make it better, your help is most welcome. 
+
+### How to make a clean pull request
+
+- Create a personal fork of the project on Github.
+- Clone the fork on your local machine. Your remote repo on Github is called `origin`.
+- Add the original repository as a remote called `upstream`.
+- If you created your fork a while ago be sure to pull upstream changes into your local repository.
+- Create a new branch to work on! Branch from `develop` if it exists, else from `master`.
+- Implement/fix your feature, comment your code.
+- Follow the code style of the project, including indentation.
+- If the project has tests run them!
+- Write or adapt tests as needed.
+- Add or change the documentation as needed.
+- Push your branch to your fork on Github, the remote `origin`.
+- From your fork open a pull request in the correct branch. Target the project's `develop` branch if there is one, else go for `master`!
+- Once the pull request is approved and merged you can pull the changes from `upstream` to your local repo and delete
+  your extra branch(es).
+
+And last but not least: Always write your commit messages in the present tense. Your commit message should describe what the commit, when applied, does to the code – not what you did to the code.
 
 ## Contato
 <div class="LI-profile-badge"  data-version="v1" data-size="medium" data-locale="pt_BR" data-type="vertical" data-theme="dark" data-vanity="denisolvra"><a class="LI-simple-link" href='https://br.linkedin.com/in/denisolvra?trk=profile-badge'>Denis Oliveira</a></div>
