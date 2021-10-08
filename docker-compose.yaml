@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  api:
+    container_name: todo_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5001:80
+    networks:
+      - default
+  database:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    container_name: todo_db
+    environment:
+      SA_PASSWORD: "Sined@2019!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - 1433:1433
+    networks:
+      - default
+    volumes:
+      - db-data:/var/opt/mssql
+networks:
+  default:
+volumes:
+  db-data:
