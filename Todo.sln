@@ -11,6 +11,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7694A54A-8ACE-4D0D-AFFF-32E65EE216D7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{456AC238-BB9B-494F-9CA3-61AA30A84C38}"
+ProjectSection(SolutionItems) = preProject
+	docker-compose.yaml = docker-compose.yaml
+	Dockerfile = Dockerfile
+EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Todo.Domain.UnitTests", "tests\Todo.Domain.UnitTests\Todo.Domain.UnitTests.csproj", "{4411B0A7-745B-4104-9495-2DA385EF3847}"
 EndProject
