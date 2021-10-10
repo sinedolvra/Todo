@@ -15,12 +15,10 @@ namespace Todo.Api
     public class TodoController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly ITodoRepository _repository;
 
-        public TodoController(IMediator mediator, ITodoRepository repository)
+        public TodoController(IMediator mediator)
         {
             _mediator = mediator;
-            _repository = repository;
         }
         
         [Route("")]
@@ -42,9 +40,9 @@ namespace Todo.Api
 
         [Route("{id}")]
         [HttpGet]
-        public async Task<IActionResult> GetTodo(string id)
+        public async Task<IActionResult> GetTodo(string id, [FromServices] ITodoRepository repository)
         {
-            var todo = await _repository.Get(id);
+            var todo = await repository.Get(id);
             if (todo is null) return NotFound(new ErrorResponse($"No todo was found with this id {id}"));
             
             return Ok(todo);
@@ -52,25 +50,25 @@ namespace Todo.Api
         
         [Route("")]
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromServices] ITodoRepository repository)
         {
-            var todos = await _repository.GetAll();
+            var todos = await repository.GetAll();
             return Ok(todos);
         }
         
         [Route("undone")]
         [HttpGet]
-        public async Task<IActionResult> GetUnDone()
+        public async Task<IActionResult> GetUnDone([FromServices] ITodoRepository repository)
         {
-            var todos = await _repository.GetUnDone();
+            var todos = await repository.GetUnDone();
             return Ok(todos);
         }
         
         [Route("done")]
         [HttpGet]
-        public async Task<IActionResult> GetDone()
+        public async Task<IActionResult> GetDone([FromServices] ITodoRepository repository)
         {
-            var todos = await _repository.GetDone();
+            var todos = await repository.GetDone();
             return Ok(todos);
         }
     }

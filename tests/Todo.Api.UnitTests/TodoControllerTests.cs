@@ -43,7 +43,7 @@ namespace Todo.Api.UnitTests
             
             var result = await _controller.CreateTodo(request);
 
-            result.Should().BeOfType(typeof(OkObjectResult));
+            result.Should().BeOfType(typeof(CreatedAtRouteResult));
         }
 
         [Fact]
