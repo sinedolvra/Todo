@@ -6,7 +6,7 @@ namespace Todo.Domain.Commands.Validators
     {
         public UpdateTodoValidator()
         {
-            RuleFor(x => x.Id).NotNull();
+            RuleFor(x => x.Id).NotEmpty();
             When(x => x.Title != null, () =>
             {
                 RuleFor(x => x.Title).NotEmpty().MinimumLength(3);

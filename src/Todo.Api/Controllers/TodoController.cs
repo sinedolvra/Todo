@@ -74,7 +74,7 @@ namespace Todo.Api.Controllers
 
         [Route("")]
         [HttpPatch]
-        public async Task<IActionResult> UpdateTodo([FromBody] UpdateTodo request,[FromServices] ITodoRepository repository)
+        public async Task<IActionResult> UpdateTodo([FromBody] UpdateTodo request)
         {
             try
             {
