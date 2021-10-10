@@ -1,4 +1,5 @@
 using System;
+using Todo.Domain.Commands;
 
 namespace Todo.Domain.Entities
 {
@@ -19,5 +20,12 @@ namespace Todo.Domain.Entities
 
         public void MarkAsDone() => Done = true;
         public void MarkAsUnDone() => Done = false;
+
+        public void Update(UpdateTodo request)
+        {
+            Title = request.Title ?? Title;
+            Description = request.Description ?? Description;
+            Done = request.Done ?? Done;
+        }
     }
 }

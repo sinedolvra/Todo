@@ -6,6 +6,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Todo.Api.Controllers;
 using Todo.Domain.Commands;
 using Todo.Domain.Commands.Contracts;
 using Todo.Domain.Entities;
@@ -63,14 +64,14 @@ namespace Todo.Api.UnitTests
         }
 
         [Fact]
-        public async Task GetTodo_GivenANotFoundTodo_ReturnANotFoundResponse()
+        public async Task GetTodo_GivenANotFoundTodo_ShouldReturnANotFoundResponse()
         {
             var result = await _controller.GetTodo(Fixture.Create<string>(), _repository.Object);
             result.Should().BeOfType<NotFoundObjectResult>();
         }
         
         [Fact]
-        public async Task GetTodo_GivenAValidReturnedTodo_ReturnAOkResponse()
+        public async Task GetTodo_GivenAValidReturnedTodo_ShouldReturnAOkResponse()
         {
             var validTodo = Fixture.Create<TodoItem>();
             _repository.Setup(x => x.Get(It.IsAny<string>())).ReturnsAsync(validTodo);
@@ -79,7 +80,7 @@ namespace Todo.Api.UnitTests
         }
         
         [Fact]
-        public async Task GetAll_GivenAValidReturnedTodo_ReturnAOkResponse()
+        public async Task GetAll_GivenAValidReturnedTodo_ShouldReturnAOkResponse()
         {
             var validTodos = Fixture.CreateMany<TodoItem>().ToList();
             _repository.Setup(x => x.GetAll()).ReturnsAsync(validTodos);
@@ -88,14 +89,14 @@ namespace Todo.Api.UnitTests
         }
         
         [Fact]
-        public async Task GetAll_GivenAEmptyReturnedList_ReturnAOkResponseWithEmptyList()
+        public async Task GetAll_GivenAEmptyReturnedList_ShouldReturnAOkResponseWithEmptyList()
         {
             var result = await _controller.GetAll(_repository.Object);
             result.Should().BeOfType<OkObjectResult>();
         }
         
         [Fact]
-        public async Task GetUnDone_GivenAValidReturnedTodo_ReturnAOkResponse()
+        public async Task GetUnDone_GivenAValidReturnedTodo_ShouldReturnAOkResponse()
         {
             var validTodos = Fixture.Build<TodoItem>().With(x => x.Done, false).CreateMany().ToList();
             _repository.Setup(x => x.GetAll()).ReturnsAsync(validTodos);
@@ -104,12 +105,45 @@ namespace Todo.Api.UnitTests
         }
         
         [Fact]
-        public async Task GetDone_GivenAValidReturnedTodo_ReturnAOkResponse()
+        public async Task GetDone_GivenAValidReturnedTodo_ShouldReturnAOkResponse()
         {
             var validTodos = Fixture.Build<TodoItem>().With(x => x.Done, true).CreateMany().ToList();
             _repository.Setup(x => x.GetAll()).ReturnsAsync(validTodos);
             var result = await _controller.GetDone(_repository.Object);
             result.Should().BeOfType<OkObjectResult>();
+        }
+
+        [Fact]
+        public async Task UpdateTodo_GivenAnInvalidCommandResult_ShouldReturnBadRequest()
+        {
+            var request = Fixture.Create<UpdateTodo>();
+            var commandResult = new GenericCommandResult(false, new object(), new object());
+            Mediator.Setup(x => x.Send(It.IsAny<Command>(), CancellationToken.None)).ReturnsAsync(commandResult);
+
+            var result = await _controller.UpdateTodo(request);
+            result.Should().BeOfType<BadRequestObjectResult>();
+        }
+        
+        [Fact]
+        public async Task UpdateTodo_GivenAValidCommandResult_ShouldReturnOk()
+        {
+            var request = Fixture.Create<UpdateTodo>();
+            var commandResult = new GenericCommandResult(true, new object(), new object());
+            Mediator.Setup(x => x.Send(It.IsAny<Command>(), CancellationToken.None)).ReturnsAsync(commandResult);
+
+            var result = await _controller.UpdateTodo(request);
+            result.Should().BeOfType<OkObjectResult>();
+        }
+        
+        [Fact]
+        public async Task UpdateTodo_GivenAnException_ShouldReturn500()
+        {
+            var request = Fixture.Create<UpdateTodo>();
+
+            var result = (ObjectResult) await _controller.UpdateTodo(request);
+
+            result.Should().BeOfType(typeof(ObjectResult));
+            result.StatusCode.Should().Be(StatusCodes.Status500InternalServerError);
         }
     }
 }

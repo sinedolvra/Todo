@@ -1,6 +1,7 @@
 using System;
 using AutoFixture;
 using FluentAssertions;
+using Todo.Domain.Commands;
 using Todo.Domain.Entities;
 using Xunit;
 
@@ -42,6 +43,30 @@ namespace Todo.Domain.UnitTests.Entities
             todo.MarkAsUnDone();
 
             todo.Done.Should().BeFalse();
+        }
+
+        [Fact]
+        public void UpdateTodo_GivenAValidRequest_ShouldUpdateAllProperties()
+        {
+            var command = Fixture.Create<UpdateTodo>();
+            var todoItem = Fixture.Create<TodoItem>();
+            todoItem.Update(command);
+
+            todoItem.Description.Should().BeEquivalentTo(command.Description);
+            todoItem.Title.Should().BeEquivalentTo(command.Title);
+            command.Done.Should().Be(todoItem.Done);
+        }
+
+        [Fact]
+        public void UpdateTodo_GivenACommandWithNullProperties_ShouldNotUpdateProperties()
+        {
+            var command = new UpdateTodo("", null, null, null);
+            var todoItem = Fixture.Create<TodoItem>();
+            todoItem.Update(command);
+
+            todoItem.Description.Should().NotBeEquivalentTo(command.Description);
+            todoItem.Title.Should().NotBeEquivalentTo(command.Title);
+            command.Done.Should().NotBe(todoItem.Done);
         }
     }
 }

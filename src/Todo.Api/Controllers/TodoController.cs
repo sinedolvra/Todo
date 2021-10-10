@@ -8,7 +8,7 @@ using Todo.Domain.Commands.Contracts;
 using Todo.Domain.Repositories;
 using Todo.Shared;
 
-namespace Todo.Api
+namespace Todo.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -70,6 +70,23 @@ namespace Todo.Api
         {
             var todos = await repository.GetDone();
             return Ok(todos);
+        }
+
+        [Route("")]
+        [HttpPatch]
+        public async Task<IActionResult> UpdateTodo([FromBody] UpdateTodo request)
+        {
+            try
+            {
+                var result = (GenericCommandResult) await _mediator.Send(request);
+                if (!result.Success) return BadRequest(result);
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ErrorResponse(e.Message));
+            }
         }
     }
 }
