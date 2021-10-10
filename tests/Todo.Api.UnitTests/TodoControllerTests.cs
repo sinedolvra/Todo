@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Todo.Domain.Commands;
 using Todo.Domain.Commands.Contracts;
+using Todo.Domain.Entities;
+using Todo.Domain.Repositories;
 using Xunit;
 
 namespace Todo.Api.UnitTests
@@ -14,10 +17,12 @@ namespace Todo.Api.UnitTests
     public class TodoControllerTests : TestBase
     {
         private readonly TodoController _controller;
+        private readonly Mock<ITodoRepository> _repository;
 
         public TodoControllerTests()
         {
             _controller = new TodoController(Mediator.Object);
+            _repository = new Mock<ITodoRepository>();
         }
 
         [Fact]
@@ -55,6 +60,56 @@ namespace Todo.Api.UnitTests
 
             result.Should().BeOfType(typeof(ObjectResult));
             result.StatusCode.Should().Be(StatusCodes.Status500InternalServerError);
+        }
+
+        [Fact]
+        public async Task GetTodo_GivenANotFoundTodo_ReturnANotFoundResponse()
+        {
+            var result = await _controller.GetTodo(Fixture.Create<string>(), _repository.Object);
+            result.Should().BeOfType<NotFoundObjectResult>();
+        }
+        
+        [Fact]
+        public async Task GetTodo_GivenAValidReturnedTodo_ReturnAOkResponse()
+        {
+            var validTodo = Fixture.Create<TodoItem>();
+            _repository.Setup(x => x.Get(It.IsAny<string>())).ReturnsAsync(validTodo);
+            var result = await _controller.GetTodo(Fixture.Create<string>(), _repository.Object);
+            result.Should().BeOfType<OkObjectResult>();
+        }
+        
+        [Fact]
+        public async Task GetAll_GivenAValidReturnedTodo_ReturnAOkResponse()
+        {
+            var validTodos = Fixture.CreateMany<TodoItem>().ToList();
+            _repository.Setup(x => x.GetAll()).ReturnsAsync(validTodos);
+            var result = await _controller.GetAll(_repository.Object);
+            result.Should().BeOfType<OkObjectResult>();
+        }
+        
+        [Fact]
+        public async Task GetAll_GivenAEmptyReturnedList_ReturnAOkResponseWithEmptyList()
+        {
+            var result = await _controller.GetAll(_repository.Object);
+            result.Should().BeOfType<OkObjectResult>();
+        }
+        
+        [Fact]
+        public async Task GetUnDone_GivenAValidReturnedTodo_ReturnAOkResponse()
+        {
+            var validTodos = Fixture.Build<TodoItem>().With(x => x.Done, false).CreateMany().ToList();
+            _repository.Setup(x => x.GetAll()).ReturnsAsync(validTodos);
+            var result = await _controller.GetUnDone(_repository.Object);
+            result.Should().BeOfType<OkObjectResult>();
+        }
+        
+        [Fact]
+        public async Task GetDone_GivenAValidReturnedTodo_ReturnAOkResponse()
+        {
+            var validTodos = Fixture.Build<TodoItem>().With(x => x.Done, true).CreateMany().ToList();
+            _repository.Setup(x => x.GetAll()).ReturnsAsync(validTodos);
+            var result = await _controller.GetDone(_repository.Object);
+            result.Should().BeOfType<OkObjectResult>();
         }
     }
 }
