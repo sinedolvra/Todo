@@ -6,6 +6,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Todo.Api.Controllers;
 using Todo.Domain.Commands;
 using Todo.Domain.Commands.Contracts;
 using Todo.Domain.Entities;
