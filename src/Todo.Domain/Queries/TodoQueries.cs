@@ -8,7 +8,7 @@ namespace Todo.Domain.Queries
     {
         public static Expression<Func<TodoItem, bool>> GetUnDone()
         {
-            return todo => todo.Done == false;
+            return todo => !todo.Done;
         }
         
         public static Expression<Func<TodoItem, bool>> GetDone()
