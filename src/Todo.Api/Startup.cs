@@ -35,9 +35,8 @@ namespace Todo.Api
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Todo.Api", Version = "v1"}); });
 
             ConfigureDatabase(services);
-
             services.AddScoped<ITodoRepository, TodoRepository>();
-            services.AddScoped<IRequestHandler<CreateTodo, ICommandResult>, CreateTodoCommandHandler>();
+            ConfigureCommands(services);
         }
 
         private void ConfigureDatabase(IServiceCollection services)
@@ -69,6 +68,12 @@ namespace Todo.Api
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+        
+        private void ConfigureCommands(IServiceCollection services)
+        {
+            services.AddScoped<IRequestHandler<CreateTodo, ICommandResult>, CreateTodoCommandHandler>();
+            services.AddScoped<IRequestHandler<UpdateTodo, ICommandResult>, UpdateTodoCommandHandler>();
         }
     }
 }

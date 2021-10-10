@@ -11,5 +11,6 @@ namespace Todo.Domain.Repositories
         Task<List<TodoItem>> GetUnDone();
         Task<List<TodoItem>> GetDone();
         Task<List<TodoItem>> GetAll();
+        Task SaveChanges();
     }
 }

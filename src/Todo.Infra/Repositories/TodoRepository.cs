@@ -62,5 +62,10 @@ namespace Todo.Infra.Repositories
                     .ToList()
             );
         }
+        
+        public async Task SaveChanges()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }
