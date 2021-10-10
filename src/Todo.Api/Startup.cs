@@ -70,7 +70,7 @@ namespace Todo.Api
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
         
-        private void ConfigureCommands(IServiceCollection services)
+        private static void ConfigureCommands(IServiceCollection services)
         {
             services.AddScoped<IRequestHandler<CreateTodo, ICommandResult>, CreateTodoCommandHandler>();
             services.AddScoped<IRequestHandler<UpdateTodo, ICommandResult>, UpdateTodoCommandHandler>();
