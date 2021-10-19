@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Todo.Domain.Commands;
@@ -21,6 +22,7 @@ namespace Todo.Api.Controllers
             _mediator = mediator;
         }
         
+        [Authorize(Roles = "todo_create")]
         [Route("")]
         [HttpPost]
         public async Task<IActionResult> CreateTodo([FromBody] CreateTodo request)
@@ -38,6 +40,7 @@ namespace Todo.Api.Controllers
             }
         }
 
+        [Authorize(Roles = "todo_get")]
         [Route("{id}")]
         [HttpGet]
         public async Task<IActionResult> GetTodo(string id, [FromServices] ITodoRepository repository)
@@ -48,6 +51,7 @@ namespace Todo.Api.Controllers
             return Ok(todo);
         }
         
+        [Authorize(Roles = "todo_get")]
         [Route("")]
         [HttpGet]
         public async Task<IActionResult> GetAll([FromServices] ITodoRepository repository)
@@ -56,6 +60,7 @@ namespace Todo.Api.Controllers
             return Ok(todos);
         }
         
+        [Authorize("todo_get")]
         [Route("undone")]
         [HttpGet]
         public async Task<IActionResult> GetUnDone([FromServices] ITodoRepository repository)
@@ -64,6 +69,7 @@ namespace Todo.Api.Controllers
             return Ok(todos);
         }
         
+        [Authorize("todo_get")]
         [Route("done")]
         [HttpGet]
         public async Task<IActionResult> GetDone([FromServices] ITodoRepository repository)
@@ -72,6 +78,7 @@ namespace Todo.Api.Controllers
             return Ok(todos);
         }
 
+        [Authorize("todo_update")]
         [Route("")]
         [HttpPatch]
         public async Task<IActionResult> UpdateTodo([FromBody] UpdateTodo request)
